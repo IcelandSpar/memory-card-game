@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "EB Garamond";
+}
+
+
+.eb-garamond {
+  font-family: "EB Garamond", serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+body {
+  background-image: url('elden-winter-background.jpeg');
+  
+  background-position: center;
+  background-size: stretch;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  cursor: url('dwarven_gauntlet_extra_1.png'), auto;
+}
+
+.npc-cards-container {
+  list-style-type: none;
+  margin: 2rem auto;
+  max-width: 80%;
+  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+  
+  gap: 1rem;
+}
+
+.npc-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: white;
+  font-size: 2rem;
+  background-color: rgba(0, 0, 0, 0.397);
+  border-radius: 15px;
+  padding: 1rem;
+  max-width: 400px;
+  text-align: center;
+  flex-basis: 350px;
+}
+
+.npc-cards:hover {
+  transform: scale(1.05);
+  cursor: url('dwarven_gauntlet_extra_1.png'), auto;
+}
+
+.npc-cards img {
+  
+}
