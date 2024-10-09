@@ -22,6 +22,40 @@ body {
   cursor: url('dwarven_gauntlet_extra_1.png'), auto;
 }
 
+.header {
+  max-width: 80%;
+  
+  margin: 1rem auto; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  color: #eccc84;
+  font-size: 1.5rem;
+
+  
+}
+
+.header img {
+  object-position: center;
+  object-fit: cover;
+  height: 70px;
+}
+
+.header h1 {
+  margin-top: -1.2rem;
+}
+
+
+
+.score-board {
+  display: flex;
+  margin-top: 2rem;
+  gap: 3rem;
+  font-size: 2rem;
+}
+
+
 .npc-cards-container {
   list-style-type: none;
   margin: 2rem auto;
