@@ -3,14 +3,16 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { Header } from './Header.jsx'
+import gameOver from './game-over.png';
 
 function App() {
   const [eldenImages, setEldenImages] = useState([]);
   const [score, setScore] = useState(0);
   const [highScore, sethighScore] = useState(0);
   const [cardsSelected, setCardsSelected] = useState([]);
+  const [gameOver, setGameOver] = useState(false);
 
-
+  let gameOverModal = document.querySelector('.game-over-modal');
 
 useEffect(() => {
 
@@ -48,25 +50,42 @@ const shuffleCards = () => {
 
   return (
     <>
+      <div className={`game-over-modal ${gameOver ? 'visible' : 'hidden'}`}  >
+        <button onClick={(e) => {
+          setGameOver(prev => false);
+          setCardsSelected(prev => []);
+          
+        }}>Retry</button>
+      </div>
     <Header score={score} highScore={highScore}/>
+
       <section className='npc-cards-container'>
         {eldenImages.map((npcInfo, index) => {
           return (<button key={index} className='npc-cards' onClick={(e) => {
             e.preventDefault()
 
 
+
+
             if(!cardsSelected.includes(`${npcInfo.name}`)) {
               let cardsSelectedArr = [...cardsSelected]
               setCardsSelected(prev => [...prev, npcInfo.name])
-              setScore(prevScore => cardsSelectedArr.length)
+              setScore(prev => prev + 1)
+              
               shuffleCards()
-              console.log(score)
+              console.log()
             }
 
+            if(cardsSelected.includes(`${npcInfo.name}`)) {
+              score > highScore ? sethighScore((prevScore) => score) : null;
+              setScore(0)
+              setGameOver(prev => true);
+            }
+            
 
           }}>
             
-            <img src={npcInfo.image} alt={npcInfo.name} style={{width: '300px', height:'160px', objectFit: 'contain', objectPosition: 'center'}} />
+            <img src={npcInfo.image} alt={npcInfo.name} style={{width: '100%', height:'170px', objectFit: 'contain', objectPosition: 'center'}} />
             <p>{npcInfo.name}</p>
           </button>)
         })}
