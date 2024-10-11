@@ -75,9 +75,10 @@ body {
 }
 
 [id='type-of-card'], option {
-  font-size: 1rem;
+  font-size: 1.2rem;
   padding: .5rem 1rem;
   border-radius: 15px;
+  background-color: rgb(180, 180, 155);
 }
 
 .difficulty-btns {
@@ -90,7 +91,14 @@ body {
 .difficulty-btns button, .form-start-game-btn {
   padding: .5rem 1rem;
   border-radius: 100px;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
+  background-color: rgb(180, 180, 155);
+  font-weight: 600;
+}
+
+.form-start-game-btn {
+  font-weight: 800;
+  font-size: 2rem;
 }
 
 
@@ -155,19 +163,41 @@ body {
   width: 100%;
   height: 100%;
   margin: 0 auto;
+  top: 0;
+  display: block;
 
-  display: none;
-  justify-content: center;
-  align-items: center;
 
   opacity: 0;
   z-index: 2;
 }
 
+.victory-background {
+  background-image: url('victory.png');
+}
+
+.game-over-modal-btns {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  position: relative;
+  top: 32%;
+}
+
+.game-over-gif {
+  position: relative;
+  margin: 0 auto;
+  top: 10%;
+  display: flex;
+  width: 500px;
+  height: 300px;
+  object-fit: contain;
+}
+
 .visible {
   
-  display: flex;
+  
   opacity: 1;
+
 }
 
 .animated {

@@ -19,6 +19,16 @@ function App() {
     cardType: 'npcs',
   })
 
+  const translateDiff = (difficulty) => {
+    if(difficulty == 'easy') {
+        return '10'
+    } else if (difficulty == 'medium') {
+        return '20'
+    } else {
+        return '30'
+    }
+  }
+
   let gameOverModal = document.querySelector(".game-over-modal");
 
   return (
@@ -37,8 +47,10 @@ function App() {
           highScore={highScore}
           setHighScore={setHighScore}
           gameOptions={gameOptions}
+          translateDiff={translateDiff}
+          setGameStarted={setGameStarted}
         />
-      ) : <GameStartOptions gameOptions={gameOptions} setGameOptions={setGameOptions} setGameStarted={setGameStarted}/>}
+      ) : <GameStartOptions setGameOptions={setGameOptions} setGameStarted={setGameStarted} translateDiff={translateDiff} setGameOver={setGameOver}/>}
     </>
   );
 }

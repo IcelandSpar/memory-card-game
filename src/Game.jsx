@@ -1,4 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import gameOverGif from './game-over-gif.gif';
+import victoryGif from './alb-victory-gif.gif';
 
 export function Game({
   setGameOver,
@@ -11,22 +13,49 @@ export function Game({
   score,
   highScore,
   setHighScore,
-  gameOptions
+  gameOptions,
+  translateDiff,
+  setGameStarted,
 }) {
+    
+    const [imgSrc, setImgSrc] = useState('')
+    
+
+    
 
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
-    const url = `https://eldenring.fanapis.com/api/${gameOptions.cardType}?limit=${translateDiff()}`;
+    const url = `https://eldenring.fanapis.com/api/${gameOptions.cardType}?limit=${translateDiff(gameOptions.difficulty)}`;
 
     const response = await fetch(url);
     const json = await response.json();
 
     setEldenImages(json.data);
-    console.log(eldenImages);
+
   };
+
+  // const getGif = async () => {
+  //   try {
+  //     let response = await fetch('', {mode: 'no-cors'})
+  //     let imgData = response;
+  
+  //       setImgSrc(imgData);
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+
+      
+  // }
+
+  // useEffect(() => {
+
+  //   getGif();
+  // }, [])
+
+
 
   const shuffleCards = () => {
     let newEldenObjArr = [...eldenImages];
@@ -42,33 +71,32 @@ export function Game({
       ];
     }
 
-    console.log(newEldenObjArr);
-    console.log(shuffledArr);
+
     setEldenImages(shuffledArr);
   };
 
-  const translateDiff = (difficulty) => {
-    if(difficulty == 'easy') {
-        return '10'
-    } else if (difficulty == 'medium') {
-        return '20'
-    } else {
-        return '30'
-    }
-  }
+
 
   return (
     <>
-    {console.log(gameOptions)}
-      <div className={`game-over-modal ${gameOver ? "visible" : "hidden"}`}>
-        <button
-          onClick={(e) => {
-            setGameOver((prev) => false);
-            setCardsSelected((prev) => []);
-          }}
-        >
-          Retry
-        </button>
+
+      <div className={`game-over-modal ${gameOver || score ==  translateDiff(gameOptions.difficulty) ? "visible" : "hidden"} ${score == translateDiff(gameOptions.difficulty) ? 'victory-background' : null}`}>
+        <img src={score == translateDiff(gameOptions.difficulty) ? victoryGif: gameOverGif} alt="elden gif" className='game-over-gif'/>
+        <div className="game-over-modal-btns">
+            <button
+              onClick={(e) => {
+                setScore(0);
+                setGameOver((prev) => false);
+                setCardsSelected((prev) => []);
+              }}
+            >
+              Retry
+            </button>
+            <button onClick={(e) => {
+                e.preventDefault();
+                setGameStarted(false)
+            }}>Change Settings</button>
+        </div>
       </div>
       <section className="npc-cards-container">
         {eldenImages.map((npcInfo, index) => {
@@ -90,7 +118,7 @@ export function Game({
 
                 if (cardsSelected.includes(`${npcInfo.name}`)) {
                   score > highScore ? setHighScore((prevScore) => score) : null;
-                  setScore(0);
+                  
                   setGameOver((prev) => true);
                 }
               }}

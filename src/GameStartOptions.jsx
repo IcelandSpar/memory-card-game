@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export function GameStartOptions({gameOptions, setGameOptions, setGameStarted}) {
+export function GameStartOptions({setGameOptions, setGameStarted, translateDiff, setGameOver}) {
     const [difficulty, setDifficulty] = useState('easy');
     const [cardType, setCardType] = useState('npcs');
 
@@ -10,7 +10,7 @@ export function GameStartOptions({gameOptions, setGameOptions, setGameStarted}) 
         <form action="" className="game-start-opt-form">
             <h2>Choose Your options!</h2>
 
-            <h3>Difficulty</h3>
+            <h3>Difficulty: {difficulty.slice(0, 1).toUpperCase() + difficulty.slice(1)} ({translateDiff(difficulty) + ' cards'})</h3>
             <div className="difficulty-btns">
                 <button onClick={(e) => {
                     e.preventDefault();
@@ -25,7 +25,7 @@ export function GameStartOptions({gameOptions, setGameOptions, setGameStarted}) 
                     setDifficulty('hard');
                 }}>Hard</button>
             </div>
-            <h3>Type of Card</h3>
+            <h3>Type of Card: {cardType.slice(0, 1).toUpperCase() + cardType.slice(1)}</h3>
             <label htmlFor="type-of-card">
                 <select name="type-of-card" id="type-of-card" onChange={(e) => {
                     e.preventDefault();
@@ -33,6 +33,7 @@ export function GameStartOptions({gameOptions, setGameOptions, setGameStarted}) 
                 }}>
                     <option value="npcs">NPCs</option>
                     <option value="bosses">Bosses</option>
+                    <option value="spirits">Spirits</option>
                 </select>
             </label>
             <button className="form-start-game-btn" onClick={(e) => {
@@ -42,7 +43,8 @@ export function GameStartOptions({gameOptions, setGameOptions, setGameStarted}) 
                         cardType,
                     })
                     setGameStarted(true)
-                }}>Start Game!</button>
+                    setGameOver(false)
+                }}>Traverse the mist</button>
         </form>
     )
 }
