@@ -88,13 +88,18 @@ export function Game({
                 setScore(0);
                 setGameOver((prev) => false);
                 setCardsSelected((prev) => []);
+                score > highScore ? setHighScore((prevScore) => score) : null;
               }}
             >
               Retry
             </button>
             <button onClick={(e) => {
+                
                 e.preventDefault();
+                score > highScore ? setHighScore((prevScore) => score) : null;
+                setScore(0);
                 setGameStarted(false)
+                setCardsSelected((prev) => []);
             }}>Change Settings</button>
         </div>
       </div>
